@@ -7,61 +7,67 @@
 @endphp
 
 <x-admin.layouts.admin title="{{ $app->exists ? 'Edit App' : 'Create App' }}">
-    <h1 class="text-2xl font-bold mb-6">{{ $app->exists ? 'Edit App' : 'Create App' }}</h1>
+    <h1 class="mb-4">{{ $app->exists ? 'Edit App' : 'Create App' }}</h1>
 
     <form method="POST" action="{{ $app->exists ? route('admin.apps.update', $app) : route('admin.apps.store') }}"
-        class="bg-white p-6 rounded-lg shadow max-w-lg">
-        @csrf
-        @if($app->exists) @method('PUT') @endif
+        class="card">
+        <div class="card-body">
+            @csrf
+            @if($app->exists) @method('PUT') @endif
 
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
-            <input type="text" name="name" value="{{ old('name', $app->name) }}"
-                class="w-full border rounded px-3 py-2 @error('name') border-red-500 @enderror" required>
-            @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" value="{{ old('name', $app->name) }}"
+                    class="form-control @error('name') is-invalid @enderror" required>
+                @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Slug</label>
-            <input type="text" name="slug" value="{{ old('slug', $app->slug) }}"
-                class="w-full border rounded px-3 py-2 @error('slug') border-red-500 @enderror" required>
-            @error('slug') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Slug</label>
+                <input type="text" name="slug" value="{{ old('slug', $app->slug) }}"
+                    class="form-control @error('slug') is-invalid @enderror" required>
+                @error('slug')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">API URL</label>
-            <input type="url" name="api_url" value="{{ old('api_url', $app->api_url) }}"
-                placeholder="https://blog.example.com/api"
-                class="w-full border rounded px-3 py-2 @error('api_url') border-red-500 @enderror" required>
-            @error('api_url') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-        </div>
+            <div class="mb-3">
+                <label class="form-label">API URL</label>
+                <input type="url" name="api_url" value="{{ old('api_url', $app->api_url) }}"
+                    placeholder="https://blog.example.com/api"
+                    class="form-control @error('api_url') is-invalid @enderror" required>
+                @error('api_url')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">API Token</label>
-            <input type="text" name="api_token" value="{{ old('api_token', $app->api_token) }}"
-                placeholder="{{ $app->exists ? '(leave blank to keep current)' : '(auto-generated if empty)' }}"
-                class="w-full border rounded px-3 py-2 @error('api_token') border-red-500 @enderror">
-            @error('api_token') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-            @if($app->exists && $app->api_token)
-                <p class="text-gray-500 text-xs mt-1">Leave blank to keep current token.</p>
-            @endif
-        </div>
+            <div class="mb-3">
+                <label class="form-label">API Token</label>
+                <input type="text" name="api_token" value="{{ old('api_token', $app->api_token) }}"
+                    placeholder="{{ $app->exists ? '(leave blank to keep current)' : '(auto-generated if empty)' }}"
+                    class="form-control @error('api_token') is-invalid @enderror">
+                @error('api_token')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+                @if($app->exists && $app->api_token)
+                    <div class="form-text">Leave blank to keep current token.</div>
+                @endif
+            </div>
 
-        <div class="mb-4">
-            <label class="flex items-center">
+            <div class="mb-3 form-check">
                 <input type="checkbox" name="is_active" value="1" {{ old('is_active', $app->is_active ?? true) ? 'checked' : '' }}
-                    class="mr-2">
-                <span class="text-gray-700 text-sm">Active</span>
-            </label>
-        </div>
+                    class="form-check-input" id="is_active">
+                <label class="form-check-label" for="is_active">Active</label>
+            </div>
 
-        <div class="flex space-x-2">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                {{ $app->exists ? 'Update' : 'Create' }}
-            </button>
-            <a href="{{ route('admin.apps.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
-                Cancel
-            </a>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    {{ $app->exists ? 'Update' : 'Create' }}
+                </button>
+                <a href="{{ route('admin.apps.index') }}" class="btn btn-secondary">Cancel</a>
+            </div>
         </div>
     </form>
 </x-admin.layouts.admin>

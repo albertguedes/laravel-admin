@@ -8,64 +8,78 @@
 @endphp
 
 <x-admin.layouts.admin title="Manage Roles">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Manage Roles</h1>
-        <a href="{{ route('admin.roles.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Create Role
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Manage Roles</h1>
+        <a href="{{ route('admin.roles.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Create Role
         </a>
     </div>
 
     <form method="GET" class="mb-4">
-        <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Search roles..."
-            class="border rounded px-3 py-2 w-64">
-        <button type="submit" class="bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">Search</button>
-        <a href="{{ route('admin.roles.index') }}" class="ml-2 text-gray-600 hover:text-gray-900">Clear</a>
+        <div class="row g-2">
+            <div class="col-md-4">
+                <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Search roles..."
+                    class="form-control">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-secondary">Search</button>
+                <a href="{{ route('admin.roles.index') }}" class="btn btn-light">Clear</a>
+            </div>
+        </div>
     </form>
 
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-        <table class="min-w-full">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Permissions</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($roles as $role)
-                <tr>
-                    <td class="px-6 py-4">{{ $role->id }}</td>
-                    <td class="px-6 py-4">{{ $role->name }}</td>
-                    <td class="px-6 py-4">{{ $role->description ?? '—' }}</td>
-                    <td class="px-6 py-4">
-                        @forelse($role->permissions->take(3) as $perm)
-                            <span class="inline-block bg-gray-200 rounded px-2 py-1 text-xs mr-1">{{ $perm->name }}</span>
-                        @empty
-                            <span class="text-gray-400">No permissions</span>
-                        @endforelse
-                        @if($role->permissions->count() > 3)
-                            <span class="text-gray-400">+{{ $role->permissions->count() - 3 }} more</span>
-                        @endif
-                    </td>
-                    <td class="px-6 py-4 flex space-x-2">
-                        <a href="{{ route('admin.roles.show', $role) }}" class="text-blue-600 hover:text-blue-900">View</a>
-                        <a href="{{ route('admin.roles.edit', $role) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                        <form method="POST" action="{{ route('admin.roles.destroy', $role) }}" class="inline"
-                            onsubmit="return confirm('Delete this role?')">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">No roles found.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-3">ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Permissions</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($roles as $role)
+                    <tr>
+                        <td class="ps-3">{{ $role->id }}</td>
+                        <td>{{ $role->name }}</td>
+                        <td>{{ $role->description ?? '—' }}</td>
+                        <td>
+                            @forelse($role->permissions->take(3) as $perm)
+                                <span class="badge bg-secondary me-1">{{ $perm->name }}</span>
+                            @empty
+                                <span class="text-muted">No permissions</span>
+                            @endforelse
+                            @if($role->permissions->count() > 3)
+                                <span class="text-muted">+{{ $role->permissions->count() - 3 }} more</span>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.roles.show', $role) }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-sm btn-outline-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form method="POST" action="{{ route('admin.roles.destroy', $role) }}" class="d-inline"
+                                onsubmit="return confirm('Delete this role?')">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">No roles found.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="mt-4">

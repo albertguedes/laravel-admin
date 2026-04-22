@@ -1,18 +1,30 @@
 {{-- Admin Dashboard --}}
 <x-admin.layouts.admin title="Dashboard">
-    <h1 class="text-2xl font-bold mb-6">Admin Dashboard</h1>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-            <h3 class="text-lg font-semibold mb-2">Total Users</h3>
-            <p class="text-3xl font-bold">{{ \App\Models\User::count() }}</p>
+    <h1 class="mb-4">Admin Dashboard</h1>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text display-4">{{ \App\Models\User::count() }}</p>
+                </div>
+            </div>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-            <h3 class="text-lg font-semibold mb-2">Total Roles</h3>
-            <p class="text-3xl font-bold">{{ \Spatie\Permission\Models\Role::count() }}</p>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Roles</h5>
+                    <p class="card-text display-4">{{ \Spatie\Permission\Models\Role::count() }}</p>
+                </div>
+            </div>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-            <h3 class="text-lg font-semibold mb-2">Managed Apps</h3>
-            <p class="text-3xl font-bold">{{ \App\Models\ManagedApp::count() }}</p>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Managed Apps</h5>
+                    <p class="card-text display-4">{{ \App\Models\ManagedApp::count() }}</p>
+                </div>
+            </div>
         </div>
     </div>
 </x-admin.layouts.admin>

@@ -1,48 +1,58 @@
 {{-- Admin Blog Tags Index --}}
 <x-admin.layouts.admin title="Blog Tags">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Blog Tags</h1>
-        <a href="{{ route('admin.blog.tags.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Create Tag
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Blog Tags</h1>
+        <a href="{{ route('admin.blog.tags.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Create Tag
         </a>
     </div>
 
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-        <table class="min-w-full">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Slug</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Active</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($tags as $tag)
-                <tr>
-                    <td class="px-6 py-4">{{ $tag['id'] ?? '—' }}</td>
-                    <td class="px-6 py-4">{{ $tag['title'] ?? '—' }}</td>
-                    <td class="px-6 py-4 font-mono text-sm">{{ $tag['slug'] ?? '—' }}</td>
-                    <td class="px-6 py-4">
-                        <span class="px-2 py-1 text-xs rounded {{ ($tag['is_active'] ?? true) ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                            {{ ($tag['is_active'] ?? true) ? 'Yes' : 'No' }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 flex space-x-2">
-                        <a href="{{ route('admin.blog.tags.show', $tag['id']) }}" class="text-blue-600 hover:text-blue-900">View</a>
-                        <a href="{{ route('admin.blog.tags.edit', $tag['id']) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                        <form method="POST" action="{{ route('admin.blog.tags.destroy', $tag['id']) }}" class="inline"
-                            onsubmit="return confirm('Delete?')">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">No tags found.</td></tr>
-                @endforelse
-            </tbody>
-        </table>
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-3">ID</th>
+                        <th>Title</th>
+                        <th>Slug</th>
+                        <th>Active</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($tags as $tag)
+                    <tr>
+                        <td class="ps-3">{{ $tag['id'] ?? '—' }}</td>
+                        <td>{{ $tag['title'] ?? '—' }}</td>
+                        <td><code>{{ $tag['slug'] ?? '—' }}</code></td>
+                        <td>
+                            @if($tag['is_active'] ?? true)
+                                <span class="badge bg-success">Yes</span>
+                            @else
+                                <span class="badge bg-danger">No</span>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.blog.tags.show', $tag['id']) }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ route('admin.blog.tags.edit', $tag['id']) }}" class="btn btn-sm btn-outline-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form method="POST" action="{{ route('admin.blog.tags.destroy', $tag['id']) }}" class="d-inline"
+                                onsubmit="return confirm('Delete?')">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr><td colspan="5" class="text-center py-4 text-muted">No tags found.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 </x-admin.layouts.admin>

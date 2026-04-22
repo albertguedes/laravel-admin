@@ -1,27 +1,53 @@
 {{-- Admin Blog Category Show --}}
 <x-admin.layouts.admin title="Category Details">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Category Details</h1>
-        <a href="{{ route('admin.blog.categories.index') }}" class="text-blue-600 hover:text-blue-900">Back</a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Category Details</h1>
+        <a href="{{ route('admin.blog.categories.index') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
     </div>
 
     @if($category)
-    <div class="bg-white p-6 rounded-lg shadow">
-        <div class="mb-4"><label class="font-semibold">ID:</label><p>{{ $category['id'] }}</p></div>
-        <div class="mb-4"><label class="font-semibold">Title:</label><p>{{ $category['title'] }}</p></div>
-        <div class="mb-4"><label class="font-semibold">Parent:</label><p>{{ $category['parent']['title'] ?? '—' }}</p></div>
-        <div class="mb-4"><label class="font-semibold">Slug:</label><p>{{ $category['slug'] ?? '—' }}</p></div>
-        <div class="mb-4"><label class="font-semibold">Description:</label><p>{{ $category['description'] ?? '—' }}</p></div>
-        <div class="mb-4"><label class="font-semibold">Status:</label>
-            <span class="px-2 py-1 text-xs rounded {{ ($category['is_active'] ?? true) ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                {{ ($category['is_active'] ?? true) ? 'Active' : 'Inactive' }}
-            </span>
-        </div>
-        <div class="flex space-x-2 mt-6">
-            <a href="{{ route('admin.blog.categories.edit', $category['id']) }}" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">Edit</a>
+    <div class="card">
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">ID</label>
+                <p class="mb-0">{{ $category['id'] }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">Title</label>
+                <p class="mb-0">{{ $category['title'] }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">Parent</label>
+                <p class="mb-0">{{ $category['parent']['title'] ?? '—' }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">Slug</label>
+                <p class="mb-0">{{ $category['slug'] ?? '—' }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">Description</label>
+                <p class="mb-0">{{ $category['description'] ?? '—' }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">Status</label>
+                <p class="mb-0">
+                    @if($category['is_active'] ?? true)
+                        <span class="badge bg-success">Active</span>
+                    @else
+                        <span class="badge bg-danger">Inactive</span>
+                    @endif
+                </p>
+            </div>
+            <div class="d-flex gap-2 mt-4">
+                <a href="{{ route('admin.blog.categories.edit', $category['id']) }}" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+            </div>
         </div>
     </div>
     @else
-    <p class="text-gray-500">Category not found.</p>
+    <div class="alert alert-secondary">Category not found.</div>
     @endif
 </x-admin.layouts.admin>

@@ -7,59 +7,67 @@
 @endphp
 
 <x-admin.layouts.admin title="App Details">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">App Details</h1>
-        <a href="{{ route('admin.apps.index') }}" class="text-blue-600 hover:text-blue-900">Back to List</a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">App Details</h1>
+        <a href="{{ route('admin.apps.index') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow">
-        <div class="mb-4">
-            <label class="font-semibold text-gray-700">ID:</label>
-            <p class="text-gray-900">{{ $app->id }}</p>
-        </div>
-        <div class="mb-4">
-            <label class="font-semibold text-gray-700">Name:</label>
-            <p class="text-gray-900">{{ $app->name }}</p>
-        </div>
-        <div class="mb-4">
-            <label class="font-semibold text-gray-700">Slug:</label>
-            <p class="text-gray-900 font-mono">{{ $app->slug }}</p>
-        </div>
-        <div class="mb-4">
-            <label class="font-semibold text-gray-700">API URL:</label>
-            <p class="text-gray-900">{{ $app->api_url }}</p>
-        </div>
-        <div class="mb-4">
-            <label class="font-semibold text-gray-700">API Token:</label>
-            <p class="text-gray-900 font-mono text-sm bg-gray-100 p-2 rounded">{{ $app->api_token ?? '—' }}</p>
-        </div>
-        <div class="mb-4">
-            <label class="font-semibold text-gray-700">Status:</label>
-            <p class="text-gray-900">
-                <span class="px-2 py-1 text-xs rounded {{ $app->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                    {{ $app->is_active ? 'Active' : 'Inactive' }}
-                </span>
-            </p>
-        </div>
-        <div class="mb-4">
-            <label class="font-semibold text-gray-700">Admins:</label>
-            <div class="mt-1">
-                @forelse($app->admins as $admin)
-                    <span class="inline-block bg-gray-200 rounded px-2 py-1 text-xs mr-1">{{ $admin->name }}</span>
-                @empty
-                    <span class="text-gray-400">No admins assigned</span>
-                @endforelse
+    <div class="card">
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">ID</label>
+                <p class="mb-0">{{ $app->id }}</p>
             </div>
-        </div>
-        <div class="flex space-x-2 mt-6">
-            <a href="{{ route('admin.apps.edit', $app) }}" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
-                Edit
-            </a>
-            <form method="POST" action="{{ route('admin.apps.destroy', $app) }}"
-                onsubmit="return confirm('Delete this app?')">
-                @csrf @method('DELETE')
-                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
-            </form>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">Name</label>
+                <p class="mb-0">{{ $app->name }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">Slug</label>
+                <p class="mb-0"><code>{{ $app->slug }}</code></p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">API URL</label>
+                <p class="mb-0">{{ $app->api_url }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">API Token</label>
+                <p class="mb-0"><code>{{ $app->api_token ?? '—' }}</code></p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">Status</label>
+                <p class="mb-0">
+                    @if($app->is_active)
+                        <span class="badge bg-success">Active</span>
+                    @else
+                        <span class="badge bg-danger">Inactive</span>
+                    @endif
+                </p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold text-muted small text-uppercase">Admins</label>
+                <p class="mb-0">
+                    @forelse($app->admins as $admin)
+                        <span class="badge bg-secondary me-1">{{ $admin->name }}</span>
+                    @empty
+                        <span class="text-muted">No admins assigned</span>
+                    @endforelse
+                </p>
+            </div>
+            <div class="d-flex gap-2 mt-4">
+                <a href="{{ route('admin.apps.edit', $app) }}" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <form method="POST" action="{{ route('admin.apps.destroy', $app) }}"
+                    onsubmit="return confirm('Delete this app?')">
+                    @csrf @method('DELETE')
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </x-admin.layouts.admin>
