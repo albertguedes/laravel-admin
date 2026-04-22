@@ -1,0 +1,30 @@
+/**
+ * Admin Users Index Page CSS
+ *
+ * @author Albert R. C. Guedes
+ * @description Styles for admin users management page.
+ * @path /admin/users
+ */
+
+.users-page h1 {
+    margin-bottom: 1.5rem;
+}
+
+.users-page .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.users-page .search-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.users-page .search-input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    width: 16rem;
+}

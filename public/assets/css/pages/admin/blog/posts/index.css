@@ -1,0 +1,14 @@
+/**
+ * Admin Blog Posts Index Page CSS
+ *
+ * @author Albert R. C. Guedes
+ * @description Styles for blog posts management page.
+ * @path /admin/blog/posts
+ */
+
+.blog-posts-page .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
