@@ -30,19 +30,3 @@
         <button type="submit" class="btn btn-primary btn-block">Login</button>
     </div>
 </form>
-
-<style>
-.btn-primary {
-    background-color: #F9322C;
-    border-color: #F9322C;
-}
-.btn-primary:hover {
-    background-color: #d92a24;
-    border-color: #d92a24;
-}
-.btn-primary:focus {
-    background-color: #F9322C;
-    border-color: #F9322C;
-    box-shadow: 0 0 0 3px rgba(249, 50, 44, 0.25);
-}
-</style>

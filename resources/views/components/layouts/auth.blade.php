@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel Admin') }}</title>
-
+    <title>{{ isset($title) ? $title . ' | ' : '' }}{{ config('app.name', 'Laravel Admin') }}</title>
     <link rel="stylesheet" href="{{ asset('assets/css/fonts.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/Bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -25,7 +24,9 @@
             <div class="col-12 col-sm-8 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-body p-4">
-                        <h3 class="card-title text-center mb-4">Login</h3>
+                        @if(isset($title))
+                            <h3 class="card-title text-center mb-3">{{ $title }}</h3>
+                        @endif
                         {{ $slot }}
                     </div>
                 </div>

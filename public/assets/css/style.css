@@ -65,3 +65,185 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #F9322C !important;
     border-color: #F9322C;
 }
+
+/* ==========================================================================
+   Admin Sidebar
+   ========================================================================== */
+
+.admin-sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: #232323;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1030;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-brand {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+.sidebar-brand i {
+    color: #F9322C;
+    margin-right: 0.5rem;
+}
+
+.sidebar-brand:hover {
+    color: #fff;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 1rem 0;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-link i {
+    width: 20px;
+    margin-right: 0.75rem;
+    text-align: center;
+}
+
+.sidebar-link:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-link.active {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left-color: #F9322C;
+}
+
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-footer .sidebar-link {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.sidebar-footer .sidebar-link:hover {
+    color: #F9322C;
+}
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
+
+.admin-content {
+    margin-left: 240px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   Top Navbar
+   ========================================================================== */
+
+.top-navbar {
+    height: 56px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+.top-navbar .navbar-brand {
+    color: #232323;
+    font-weight: 700;
+}
+
+.top-navbar .navbar-brand:hover {
+    color: #F9322C;
+}
+
+.top-navbar .nav-link {
+    color: #565454;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.top-navbar .nav-link:hover {
+    color: #F9322C;
+}
+
+/* ==========================================================================
+   Mobile Sidebar Toggle
+   ========================================================================== */
+
+.sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.sidebar-toggle i {
+    color: #232323;
+    font-size: 1.25rem;
+}
+
+@media (max-width: 991.98px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .admin-sidebar.show {
+        transform: translateX(0);
+    }
+
+    .admin-content {
+        margin-left: 0;
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+}
+
+/* ==========================================================================
+   Auth Pages - Button Overrides
+   ========================================================================== */
+
+.btn-primary {
+    background-color: #F9322C;
+    border-color: #F9322C;
+}
+
+.btn-primary:hover {
+    background-color: #d92a24;
+    border-color: #d92a24;
+}
+
+.btn-primary:focus {
+    background-color: #F9322C;
+    border-color: #F9322C;
+    box-shadow: 0 0 0 3px rgba(249, 50, 44, 0.25);
+}
